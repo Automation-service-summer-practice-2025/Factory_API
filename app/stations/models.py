@@ -18,3 +18,9 @@ class Station(Base):
 
     def __repr__(self):
         return str(self)
+
+    def to_dict(self):
+        return {
+            "station_id": self.station_id,
+            "station_name": self.station_name
+        }

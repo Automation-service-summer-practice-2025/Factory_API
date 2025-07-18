@@ -3,7 +3,7 @@ from typing import Optional, Union, List
 import re
 from pydantic import BaseModel, Field, validator, model_validator
 from app.utils.validators import validate_date_not_future
-from app.documents.schemas import SDocument
+from app.documents.schemas import SDocumentShort
 
 
 class SElementParams(BaseModel):
@@ -30,20 +30,19 @@ class SElement(BaseModel):
     element_name: str = Field(..., description="Читаемое название агрегата")
     station_id: int = Field(..., description="Номер установки в которой находится агрегат")
     params: SElementParams = Field(..., description="Параметры агрегата")
-    documents: List[SDocument] = Field(None, description="Список актов на агрегат")
+    documents: List[SDocumentShort] = Field(None, description="Список актов на агрегат")
 
 
 class SElementShort(BaseModel):
     element_id: int
     element_name: str = Field(..., description="Название элемента")
     working_status: bool = Field(..., description="Статус работы")
-    checking_date_start: date = Field(..., description="Дата начала проверки агрегата в формате ГГГГ-ММ-ДД")
-    checking_date_finish: date = Field(..., description="Дата конца проверки агрегата в формате ГГГГ-ММ-ДД")
+    checking_date_start: datetime = Field(..., description="Дата начала проверки агрегата в формате ГГГГ-ММ-ДД")
+    checking_date_finish: datetime = Field(..., description="Дата конца проверки агрегата в формате ГГГГ-ММ-ДД")
     block_key_status: bool = Field(..., description="Статус работы")
 
     @model_validator(mode='after')
     def validate_dates(self):
-        validate_date_not_future(self.date_last_metrological_control, 'date_last_metrological_control')
         validate_date_not_future(self.checking_date_start, 'checking_date_start')
         validate_date_not_future(self.checking_date_finish, 'checking_date_finish')
         return self

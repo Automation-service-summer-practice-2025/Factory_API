@@ -13,9 +13,9 @@ async def get_all_documents(request_body: RBDocument = Depends()) -> list[SDocum
     return await DocumentDAO.find_all(**request_body.to_dict())
 
 
-@router.get("/{id}", summary="Получить один акт по id")
-async def get_student_by_id(document_id: int) -> SDocument | dict:
+@router.get("/{document_id}", summary="Получить один акт по id")
+async def get_document_by_id(document_id: int) -> SDocument | dict:
     document = await DocumentDAO.find_one_or_none_by_id(document_id)
     if document is None:
-        return {'message': f'Документ с ID {document} не найден!'}
+        return {'message': f'Документ с ID {document_id} не найден!'}
     return await DocumentDAO.find_one_or_none_by_id(document_id)

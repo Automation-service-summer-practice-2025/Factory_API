@@ -58,7 +58,7 @@ class Element(Base):
             element_id=self.element_id,
             element_name=self.element_name,
             working_status=self.working_status,
-            checking_date_start= self.checking_date_start,
-            checking_date_finish= self.checking_date_finish,
-            block_key_status= self.block_key_status
+            checking_date_start=self.checking_date_start,
+            checking_date_finish=self.checking_date_finish,
+            block_key_status=self.block_key_status
         )

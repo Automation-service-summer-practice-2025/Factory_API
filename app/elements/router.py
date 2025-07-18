@@ -14,9 +14,10 @@ async def get_all_elements(request_body: RBElement = Depends()) -> list[SElement
     elements = await ElementDAO.find_all(**request_body.to_dict())
     return [element.to_schema() for element in elements]
 
-@router.get("/{id}", summary="Получить один агрегат по id")
-async def get_student_by_id(element_id: int) -> SElement | dict:
-    element = await ElementDAO.find_one_or_none_by_id(element_id)
+
+@router.get("/{element_id}", summary="Получить один агрегат по id")
+async def get_element_by_id(element_id: int) -> SElement | dict:
+    element = await ElementDAO.find_full_data(element_id)
     if element is None:
-        return {'message': f'Агрегат с ID {element} не найден!'}
-    return element.to_schema()
+        return {'message': f'Агрегат с ID {element_id} не найден!'}
+    return element
