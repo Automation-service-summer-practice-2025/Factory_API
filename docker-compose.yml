@@ -38,6 +38,23 @@ services:
     tty: true
     stdin_open: true
 
+  app:
+    build: .
+    container_name: factory_api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://admin:admin_password@postgres:5432/factory_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    command: >
+      sh -c "pip install -r requirements.txt &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
 volumes:
   pgdata:
     driver: local
+
