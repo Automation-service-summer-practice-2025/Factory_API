@@ -60,5 +60,6 @@ class Element(Base):
             working_status=self.working_status,
             checking_date_start=self.checking_date_start,
             checking_date_finish=self.checking_date_finish,
-            block_key_status=self.block_key_status
+            block_key_status=self.block_key_status,
+            manufacturer=self.manufacturer_name
         )

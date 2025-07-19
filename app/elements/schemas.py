@@ -40,6 +40,8 @@ class SElementShort(BaseModel):
     checking_date_start: datetime = Field(..., description="Дата начала проверки агрегата в формате ГГГГ-ММ-ДД")
     checking_date_finish: datetime = Field(..., description="Дата конца проверки агрегата в формате ГГГГ-ММ-ДД")
     block_key_status: bool = Field(..., description="Статус работы")
+    manufacturer: str = Field(..., description="Изготовитель")
+
 
     @model_validator(mode='after')
     def validate_dates(self):
